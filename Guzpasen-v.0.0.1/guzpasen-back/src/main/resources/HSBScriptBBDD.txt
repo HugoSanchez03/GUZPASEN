@@ -1,0 +1,68 @@
+CREATE SCHEMA IF NOT EXISTS guzpasen;
+CREATE DATABASE IF NOT EXISTS guzpasen;
+USE guzpasen;
+ALTER DATABASE guzpasen CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+SET default_storage_engine = InnoDB;
+
+CREATE USER IF NOT EXISTS 'root'@'localhost' IDENTIFIED BY 'dam1';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE TABLE usuario (
+    id_usuario BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nick VARCHAR(255) NOT NULL,
+    nombre VARCHAR(255),
+    apellidos VARCHAR(255),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    clave VARCHAR(255) NOT NULL,
+    rol ENUM('ADMIN', 'PROFESOR', 'GESTOR_INCIDENCIAS'),
+    usuario_movil BOOLEAN
+);
+
+-- Tabla Alumno
+CREATE TABLE alumno (
+    dni VARCHAR(255) PRIMARY KEY,
+    nombre VARCHAR(255),
+    apellidos VARCHAR(255),
+    nombre_tutor_legal VARCHAR(255),
+    apellidos_tutor_legal VARCHAR(255),
+    email_tutor_legal VARCHAR(255)
+);
+
+-- Tabla Acta
+CREATE TABLE acta (
+    id_acta BIGINT PRIMARY KEY AUTO_INCREMENT,
+    puntos_tratados VARCHAR(255),
+    observaciones VARCHAR(255),
+    fecha DATE
+);
+
+-- Tabla Tutoria
+CREATE TABLE tutoria (
+    id_tutoria BIGINT PRIMARY KEY AUTO_INCREMENT,
+    motivo VARCHAR(255),
+    urgencia VARCHAR(255),
+    asignatura VARCHAR(255),
+    fecha DATE,
+    estado ENUM('PENDIENTE', 'REALIZADA'),
+    observaciones VARCHAR(255),
+    id_usuario BIGINT,
+    dni_alumno VARCHAR(255),
+    id_acta BIGINT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (dni_alumno) REFERENCES alumno(dni),
+    FOREIGN KEY (id_acta) REFERENCES acta(id_acta)
+);
+
+-- Tabla Tarea
+CREATE TABLE tarea (
+    id_tarea BIGINT PRIMARY KEY AUTO_INCREMENT,
+    asignatura VARCHAR(255),
+    descripcion VARCHAR(255),
+    estado ENUM('COMPLETADA', 'PENDIENTE'),
+    fecha_tarea DATE,
+    id_tutoria BIGINT,
+    FOREIGN KEY (id_tutoria) REFERENCES tutoria(id_tutoria)
+);
+
+

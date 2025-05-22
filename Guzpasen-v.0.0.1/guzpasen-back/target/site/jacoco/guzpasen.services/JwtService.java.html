@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">guzpasen.services</a> &gt; <span class="el_source">JwtService.java</span></div><h1>JwtService.java</h1><pre class="source lang-java linenums">package guzpasen.services;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.io.Serializer;
+import io.jsonwebtoken.io.SerializationException;
+
+import org.springframework.stereotype.Service;
+
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
+<span class="fc" id="L17">public class JwtService {</span>
+
+<span class="fc" id="L19">    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);</span>
+
+    public String generateToken(String username) {
+<span class="fc" id="L22">        Map&lt;String, Object&gt; claims = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L23">        claims.put(&quot;sub&quot;, username);</span>
+<span class="fc" id="L24">        claims.put(&quot;created&quot;, new Date());</span>
+
+<span class="fc" id="L26">        return Jwts.builder()</span>
+<span class="fc" id="L27">                .setClaims(claims)</span>
+<span class="fc" id="L28">                .setIssuedAt(new Date())</span>
+<span class="fc" id="L29">                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))</span>
+<span class="fc" id="L30">                .signWith(key)</span>
+<span class="fc" id="L31">                .compact();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

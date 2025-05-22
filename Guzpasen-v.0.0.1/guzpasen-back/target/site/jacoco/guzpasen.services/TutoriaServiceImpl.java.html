@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TutoriaServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">guzpasen.services</a> &gt; <span class="el_source">TutoriaServiceImpl.java</span></div><h1>TutoriaServiceImpl.java</h1><pre class="source lang-java linenums">package guzpasen.services;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import guzpasen.exceptions.TutoriaNotFoundException;
+import guzpasen.models.Alumno;
+import guzpasen.models.Tutoria;
+import guzpasen.models.Tutoria.Estado;
+import guzpasen.repositories.AlumnoRepository;
+import guzpasen.repositories.TutoriaRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
+@Service
+<span class="fc" id="L20">public class TutoriaServiceImpl implements TutoriaService {</span>
+	
+	@Autowired
+	private TutoriaRepository tutoriaRepository;
+	
+	@Autowired
+	private AlumnoRepository alumnoRepository;
+	
+	@Override
+	@Transactional
+	public Tutoria createTutoria(Tutoria tutoria) {
+<span class="fc" id="L31">	    String dni = tutoria.getAlumno().getDni();</span>
+
+<span class="fc" id="L33">	    Alumno alumno = alumnoRepository.findById(dni)</span>
+<span class="fc" id="L34">	        .orElseThrow(() -&gt; new EntityNotFoundException(&quot;Alumno no encontrado con DNI: &quot; + dni));</span>
+
+<span class="fc" id="L36">	    tutoria.setAlumno(alumno);</span>
+
+<span class="fc" id="L38">	    return tutoriaRepository.save(tutoria);</span>
+	}
+
+
+	@Override
+	public Tutoria deleteTutoria(Tutoria tutoria) {
+<span class="fc" id="L44">		tutoriaRepository.delete(tutoria);</span>
+<span class="fc" id="L45">		return tutoria;</span>
+		
+	}
+
+	@Override
+	public List&lt;Tutoria&gt; findAll() {
+<span class="nc" id="L51">		return tutoriaRepository.findAll();</span>
+	}
+
+	@Override
+	public Optional&lt;Tutoria&gt; findByIdTutoria(Long idTutoria) {
+<span class="fc" id="L56">		return tutoriaRepository.findByIdTutoria(idTutoria);</span>
+	}
+
+	@Override
+	public List&lt;Tutoria&gt; findByEstado(Estado estado) {
+<span class="fc" id="L61">		return tutoriaRepository.findByEstado(estado);</span>
+	}
+
+	@Override
+	public List&lt;Tutoria&gt; findByFecha(LocalDate fecha) {
+<span class="nc" id="L66">		return tutoriaRepository.findByFecha(fecha);</span>
+	}
+
+	@Override
+	public List&lt;Tutoria&gt; findByAsignatura(String asignatura) {
+<span class="nc" id="L71">		return tutoriaRepository.findByAsignatura(asignatura);</span>
+	}
+
+	@Override
+	public Tutoria updateTutoria(Tutoria tutoria) {
+<span class="fc" id="L76">	    Tutoria tutoriaEncontrada = tutoriaRepository.findById(tutoria.getIdTutoria())</span>
+<span class="fc" id="L77">	        .orElseThrow(() -&gt; new TutoriaNotFoundException(tutoria.getIdTutoria()));</span>
+
+<span class="pc bpc" id="L79" title="2 of 4 branches missed.">	    if (tutoria.getMotivo() != null &amp;&amp; !tutoria.getMotivo().isEmpty()) {</span>
+<span class="fc" id="L80">	        tutoriaEncontrada.setMotivo(tutoria.getMotivo());</span>
+	    }
+<span class="pc bpc" id="L82" title="3 of 4 branches missed.">	    if (tutoria.getUrgencia() != null &amp;&amp; !tutoria.getUrgencia().isEmpty()) {</span>
+<span class="nc" id="L83">	        tutoriaEncontrada.setUrgencia(tutoria.getUrgencia());</span>
+	    }
+<span class="pc bpc" id="L85" title="2 of 4 branches missed.">	    if (tutoria.getAsignatura() != null &amp;&amp; !tutoria.getAsignatura().isEmpty()) {</span>
+<span class="fc" id="L86">	        tutoriaEncontrada.setAsignatura(tutoria.getAsignatura());</span>
+	    }
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">	    if (tutoria.getFecha() != null) {</span>
+<span class="nc" id="L89">	        tutoriaEncontrada.setFecha(tutoria.getFecha());</span>
+	    }
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">	    if (tutoria.getEstado() != null) {</span>
+<span class="fc" id="L92">	        tutoriaEncontrada.setEstado(tutoria.getEstado());</span>
+	    }
+<span class="pc bpc" id="L94" title="3 of 4 branches missed.">	    if (tutoria.getObservaciones() != null &amp;&amp; !tutoria.getObservaciones().isEmpty()) {</span>
+<span class="nc" id="L95">	        tutoriaEncontrada.setObservaciones(tutoria.getObservaciones());</span>
+	    }
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">	    if (tutoria.getUsuario() != null) {</span>
+<span class="nc" id="L98">	        tutoriaEncontrada.setUsuario(tutoria.getUsuario());</span>
+	    }
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">	    if (tutoria.getAlumno() != null) {</span>
+<span class="nc" id="L101">	        tutoriaEncontrada.setAlumno(tutoria.getAlumno());</span>
+	    }
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">	    if (tutoria.getActa() != null) {</span>
+<span class="nc" id="L104">	        tutoriaEncontrada.setActa(tutoria.getActa());</span>
+	    }
+
+<span class="fc" id="L107">	    return tutoriaRepository.save(tutoriaEncontrada);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

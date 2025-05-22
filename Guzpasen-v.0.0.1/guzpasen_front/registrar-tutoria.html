@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Tutoría</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <main class="main-content">
+      <header class="header">
+        <div class="logo">
+          <a href="https://blogsaverroes.juntadeandalucia.es/iestorrredelosguzmanes/" target="_blank">
+            <img src="./img/logoApp.png" />
+          </a>
+        </div>
+        <nav class="nav">
+          <a href="index.html">
+            <button class="nav-button">HOME</button>
+          </a>
+          <a href="./index.html">
+            <button class="nav-button">←</button>
+          </a>
+          <button class="nav-button active">REGISTRAR TUTORIA</button>
+          <button id="btnUsuario" class="nav-button">USUARIO</button>
+        </nav>
+        <a href="./login.html">
+          <button class="close-button">X</button>
+        </a>
+      </header>
+
+      <section class="form-section">
+        <h2>Registrar Tutoría</h2>
+        <form class="formulario" id="form-tutoria">
+          <label>Motivo:</label>
+          <input type="text" id="motivo">
+          <label>Urgencia:</label>
+          <select id="urgencia">
+            <option>Alta</option>
+            <option>Media</option>
+            <option>Baja</option>
+          </select>
+          <label>Asignatura:</label>
+          <input type="text" id="asignatura">
+          <label>Alumno:</label>
+          <input type="text" id="alumno-dni">
+          <label>Profesores:</label>
+          <input type="text" id="id-usuario">
+          <label>Observaciones:</label>
+          <textarea id="observaciones" rows="6"></textarea>
+          <label><input type="checkbox" id="notificar"> Notificar profesores</label>
+          <div class="form-buttons">
+            <button type="button" class="yellow-button" id="cancelar-btn">Cancelar</button>
+            <button type="submit" class="green-button">Aceptar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="/js/usuario.js"></script>
+  <script src="/js/altaTutoria.js"></script>
+</body>
+
+</html>

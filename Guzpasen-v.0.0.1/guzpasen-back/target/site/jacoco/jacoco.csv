@@ -1,0 +1,18 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+demo,guzpasen.services,UsuarioServiceImpl,0,14,0,0,0,3,0,3,0,3
+demo,guzpasen.services,TutoriaServiceImpl,46,116,15,11,9,25,16,8,3,8
+demo,guzpasen.services,TareaServiceImpl,14,67,0,0,3,14,3,7,3,7
+demo,guzpasen.services,AlumnoServiceImpl,0,70,0,0,0,15,0,7,0,7
+demo,guzpasen.services,ActaServiceImpl,0,63,0,0,0,13,0,8,0,8
+demo,guzpasen.services,JwtService,0,42,0,0,0,11,0,2,0,2
+demo,guzpasen.exceptions,AlumnoNotFoundException,0,8,0,0,0,4,0,2,0,2
+demo,guzpasen.exceptions,ActaNotFoundException,0,9,0,0,0,4,0,2,0,2
+demo,guzpasen.exceptions,TutoriaNotFoundException,0,9,0,0,0,4,0,2,0,2
+demo,guzpasen.exceptions,TareaNotFoundException,0,9,0,0,0,4,0,2,0,2
+demo,guzpasen,MyWeb,8,0,0,0,3,0,2,0,2,0
+demo,guzpasen.controllers,GuzpasenController,39,288,5,3,7,57,4,27,1,26
+demo,guzpasen.config,WebConfig,8,0,0,0,2,0,2,0,2,0
+demo,guzpasen.config,WebConfig.new WebMvcConfigurer() {...},48,0,0,0,6,0,2,0,2,0
+demo,guzpasen.models,Tarea.Estado,0,24,0,0,0,5,0,1,0,1
+demo,guzpasen.models,Usuario.Rol,0,34,0,0,0,4,0,1,0,1
+demo,guzpasen.models,Tutoria.Estado,0,24,0,0,0,5,0,1,0,1

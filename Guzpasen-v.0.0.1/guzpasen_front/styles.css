@@ -1,0 +1,381 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-image: url('img/fondoApp2.png');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .container {
+    display: flex;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #e0e0e0;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 10px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: black;
+  }
+  
+  .nav-button {
+    background-color: #d3d3d3;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .nav-button.active {
+    background-color: #bda4f2;
+  }
+  
+  .close-button {
+    background-color: red;
+    color: black;
+    border: none;
+    padding: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .buttons-section {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 6em;
+    row-gap: 9em;
+  }
+
+  .buttons-section a {
+    transition: transform 0.2s ease;
+  }
+
+  .buttons-section a:hover {
+    transform: scale(1.05);
+    background-color: #2f4faf;
+  }
+
+  .buttons-section a:visited {
+    color: white;
+  }
+  
+  .blue-button {
+    background-color: #4169e1;
+    color: white;
+    border: none;
+    padding: 25px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 6px;
+    position: relative;
+  }
+  
+  .form-section {
+    padding: 20px;
+    margin: 3rem auto 0 auto;
+  }
+  
+  .formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 400px;
+  }
+  
+  .formulario label {
+    font-weight: bold;
+  }
+  
+  .formulario input, .formulario select {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .form-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .green-button {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .yellow-button {
+    background-color: gold;
+    color: black;
+    padding: 10px;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .logo img {
+    width: 50px;
+    height: auto;
+  }
+
+  .buttons-section a.blue-button:first-of-type::after {
+    content: "Permite crear una nueva tutoría en el sistema";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .buttons-section a.blue-button:first-of-type:hover::after {
+    display: block;
+  }
+
+  .buttons-section a.blue-button:nth-of-type(2)::after {
+    content: "Envía un recordatorio a los profesores";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .buttons-section a.blue-button:nth-of-type(2):hover::after {
+    display: block;
+  }
+  
+  .buttons-section a.blue-button:nth-of-type(3)::after {
+    content: "Permite consultar el acta de una tutoría determinada";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .buttons-section a.blue-button:nth-of-type(3):hover::after {
+    display: block;
+  }
+
+  .buttons-section a.blue-button:nth-of-type(4)::after {
+    content: "Genera un nuevo informe para una tutoría";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .buttons-section a.blue-button:nth-of-type(4):hover::after {
+    display: block;
+  }
+
+  .buttons-section a.blue-button:nth-of-type(5)::after {
+    content: "Permite crear un nuevo acta para una tutoría";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .buttons-section a.blue-button:nth-of-type(5):hover::after {
+    display: block;
+  }
+
+  .buttons-section a.blue-button:nth-of-type(6)::after {
+    content: "Permite modificar la información de un acta";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .buttons-section a.blue-button:nth-of-type(6):hover::after {
+    display: block;
+  }
+
+  .buttons-section a.blue-button:nth-of-type(7)::after {
+    content: "Permite consultar la información de una tutoría";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .buttons-section a.blue-button:nth-of-type(7):hover::after {
+    display: block;
+  }
+
+  .buttons-section a.blue-button:nth-of-type(8)::after {
+    content: "Permite modificar la información de una tutoría";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .buttons-section a.blue-button:nth-of-type(8):hover::after {
+    display: block;
+  }
+
+    .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+
+  .login-box {
+    background-color: #f0f0f0;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .login-box h2 {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .login-box input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .login-button {
+    background-color: #4169e1;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #2f4faf;
+  }

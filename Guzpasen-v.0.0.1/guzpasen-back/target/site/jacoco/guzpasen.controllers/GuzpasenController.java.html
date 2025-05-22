@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GuzpasenController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">guzpasen.controllers</a> &gt; <span class="el_source">GuzpasenController.java</span></div><h1>GuzpasenController.java</h1><pre class="source lang-java linenums">package guzpasen.controllers;
+
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import guzpasen.exceptions.ActaNotFoundException;
+import guzpasen.exceptions.AlumnoNotFoundException;
+import guzpasen.exceptions.TareaNotFoundException;
+import guzpasen.exceptions.TutoriaNotFoundException;
+import guzpasen.models.Acta;
+import guzpasen.models.Alumno;
+import guzpasen.models.Tarea;
+import guzpasen.models.Tutoria;
+import guzpasen.models.Usuario;
+import guzpasen.repositories.UsuarioRepository;
+import guzpasen.services.ActaService;
+import guzpasen.services.AlumnoService;
+import guzpasen.services.JwtService;
+import guzpasen.services.TareaService;
+import guzpasen.services.TutoriaService;
+import guzpasen.services.UsuarioService;
+
+/**
+ * Controlador REST para gestionar las operaciones CRUD sobre actas, alumnos, tareas, tutorías y usuarios.
+ */
+@CrossOrigin(origins = &quot;http://127.0.0.1:5500&quot;)
+@RestController
+@RequestMapping(&quot;/guzpasen&quot;)
+<span class="fc" id="L46">public class GuzpasenController {</span>
+
+    @Autowired
+    private ActaService actaService;
+
+    @Autowired
+    private AlumnoService alumnoService;
+
+    @Autowired
+    private TareaService tareaService;
+
+    @Autowired
+    private TutoriaService tutoriaService;
+
+    @Autowired
+    private UsuarioService usuarioService;
+    
+    @Autowired
+    private UsuarioRepository usuarioRepo;
+
+    @Autowired
+    private JwtService jwtService;
+
+    // SERVICIOS CREATE
+
+    /**
+     * Añade una nueva acta.
+     * @param acta Acta a añadir.
+     * @return La acta creada con código HTTP 201.
+     */
+    @PostMapping(&quot;/anadirActa&quot;)
+    public ResponseEntity&lt;Acta&gt; addActa(@RequestBody Acta acta) {
+<span class="fc" id="L78">        System.out.println(&quot;Recibido acta: &quot; + acta);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (acta.getFecha() == null) {</span>
+<span class="fc" id="L80">            acta.setFecha(LocalDate.now());</span>
+        }
+<span class="fc" id="L82">        Acta actaAnadida = actaService.createActa(acta);</span>
+<span class="fc" id="L83">        System.out.println(&quot;Guardado acta: &quot; + actaAnadida);</span>
+<span class="fc" id="L84">        return new ResponseEntity&lt;&gt;(actaAnadida, HttpStatus.CREATED);</span>
+    }
+
+    /**
+     * Añade un nuevo alumno.
+     * @param alumno Alumno a añadir.
+     * @return El alumno creado con código HTTP 201.
+     */
+    @PostMapping(&quot;/anadirAlumno&quot;)
+    public ResponseEntity&lt;Alumno&gt; addAlumno(@RequestBody Alumno alumno) {
+<span class="fc" id="L94">        Alumno alumnoAnadido = alumnoService.createAlumno(alumno);</span>
+<span class="fc" id="L95">        return new ResponseEntity&lt;&gt;(alumnoAnadido, HttpStatus.CREATED);</span>
+    }
+
+    /**
+     * Añade una nueva tutoría.
+     * @param tutoria Tutoría a añadir.
+     * @return La tutoría creada con código HTTP 201.
+     */
+    @PostMapping(&quot;/anadirTutoria&quot;)
+    public ResponseEntity&lt;Tutoria&gt; addTutoria(@RequestBody Tutoria tutoria) {
+<span class="fc" id="L105">        Tutoria tutoriaAnadida = tutoriaService.createTutoria(tutoria);</span>
+<span class="fc" id="L106">        return new ResponseEntity&lt;&gt;(tutoriaAnadida, HttpStatus.CREATED);</span>
+    }
+
+    /**
+     * Añade una nueva tarea.
+     * @param tarea Tarea a añadir.
+     * @return La tarea creada con código HTTP 201.
+     */
+    @PostMapping(&quot;/anadirTarea&quot;)
+    public ResponseEntity&lt;Tarea&gt; addTarea(@RequestBody Tarea tarea) {
+<span class="fc" id="L116">        Tarea tareaAnadida = tareaService.createTarea(tarea);</span>
+<span class="fc" id="L117">        return new ResponseEntity&lt;&gt;(tareaAnadida, HttpStatus.CREATED);</span>
+    }
+
+    /**
+     * Añade un nuevo usuario.
+     * @param usuario Usuario a añadir.
+     * @return El usuario creado con código HTTP 201.
+     */
+    @PostMapping(&quot;/anadirUsuario&quot;)
+    public ResponseEntity&lt;Usuario&gt; addUsuario(@RequestBody Usuario usuario) {
+<span class="fc" id="L127">        Usuario usuarioAnadido = usuarioService.createUsuario(usuario);</span>
+<span class="fc" id="L128">        return new ResponseEntity&lt;&gt;(usuarioAnadido, HttpStatus.CREATED);</span>
+    }
+
+    // SERVICIOS DELETE
+
+    /**
+     * Elimina una acta.
+     * @param acta Acta a eliminar.
+     * @return La acta eliminada con código HTTP 200.
+     */
+    @DeleteMapping(&quot;/eliminarActa&quot;)
+    public ResponseEntity&lt;Acta&gt; deleteActa(@RequestBody Acta acta) {
+<span class="fc" id="L140">        Acta actaEliminado = actaService.deleteActa(acta);</span>
+<span class="fc" id="L141">        return new ResponseEntity&lt;&gt;(actaEliminado, HttpStatus.OK);</span>
+    }
+
+    /**
+     * Elimina un alumno.
+     * @param alumno Alumno a eliminar.
+     * @return El alumno eliminado con código HTTP 200.
+     */
+    @DeleteMapping(&quot;/eliminarAlumno&quot;)
+    public ResponseEntity&lt;Alumno&gt; deleteAlumno(@RequestBody Alumno alumno) {
+<span class="fc" id="L151">        Alumno alumnoEliminado = alumnoService.deleteAlumno(alumno);</span>
+<span class="fc" id="L152">        return new ResponseEntity&lt;&gt;(alumnoEliminado, HttpStatus.OK);</span>
+    }
+
+    /**
+     * Elimina una tutoría.
+     * @param tutoria Tutoría a eliminar.
+     * @return La tutoría eliminada con código HTTP 200.
+     */
+    @DeleteMapping(&quot;/eliminarTutoria&quot;)
+    public ResponseEntity&lt;Tutoria&gt; deleteTutoria(@RequestBody Tutoria tutoria) {
+<span class="fc" id="L162">        Tutoria tutoriaEliminada = tutoriaService.deleteTutoria(tutoria);</span>
+<span class="fc" id="L163">        return new ResponseEntity&lt;&gt;(tutoriaEliminada, HttpStatus.OK);</span>
+    }
+
+    /**
+     * Elimina una tarea.
+     * @param tarea Tarea a eliminar.
+     * @return La tarea eliminada con código HTTP 200.
+     */
+    @DeleteMapping(&quot;/eliminarTarea&quot;)
+    public ResponseEntity&lt;Tarea&gt; deleteTarea(@RequestBody Tarea tarea) {
+<span class="fc" id="L173">        Tarea tareaEliminada = tareaService.deleteTarea(tarea);</span>
+<span class="fc" id="L174">        return new ResponseEntity&lt;&gt;(tareaEliminada, HttpStatus.OK);</span>
+    }
+
+    // SERVICIOS DE CONSULTA
+
+    /**
+     * Lista todas las actas registradas.
+     * @param model Modelo para vista.
+     * @return Lista de actas.
+     */
+    @RequestMapping(&quot;/listarActas&quot;)
+    public List&lt;Acta&gt; catalogActa(Model model) {
+<span class="fc" id="L186">        List&lt;Acta&gt; actas = actaService.findAll();</span>
+<span class="fc" id="L187">        model.addAttribute(&quot;actas&quot;, actas);</span>
+<span class="fc" id="L188">        return actas;</span>
+    }
+
+    /**
+     * Busca una acta por su ID.
+     * @param id ID del acta.
+     * @param model Modelo para vista.
+     * @return La acta encontrada.
+     * @throws ActaNotFoundException si no se encuentra el acta.
+     */
+    @GetMapping(&quot;/tutoria/{idTutoria}/acta&quot;)
+    public ResponseEntity&lt;Acta&gt; getActaByTutoriaId(@PathVariable Long idTutoria) {
+<span class="fc" id="L200">        Tutoria tutoria = tutoriaService.findByIdTutoria(idTutoria)</span>
+<span class="fc" id="L201">            .orElseThrow(() -&gt; new TutoriaNotFoundException(idTutoria));</span>
+
+<span class="fc" id="L203">        Acta acta = tutoria.getActa();</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">        if (acta == null) {</span>
+<span class="fc" id="L205">            throw new ActaNotFoundException(idTutoria);</span>
+        }
+
+<span class="fc" id="L208">        return ResponseEntity.ok(acta);</span>
+    }
+
+
+    /**
+     * Lista todos los alumnos registrados.
+     * @param model Modelo para vista.
+     * @return Lista de alumnos.
+     */
+    @RequestMapping(&quot;/listarAlumnos&quot;)
+    public List&lt;Alumno&gt; catalogAlumno(Model model) {
+<span class="fc" id="L219">        List&lt;Alumno&gt; alumnos = alumnoService.findAll();</span>
+<span class="fc" id="L220">        model.addAttribute(&quot;alumnos&quot;, alumnos);</span>
+<span class="fc" id="L221">        return alumnos;</span>
+    }
+
+    /**
+     * Busca un alumno por su DNI.
+     * @param dni DNI del alumno.
+     * @param model Modelo para vista.
+     * @return El alumno encontrado.
+     * @throws AlumnoNotFoundException si no se encuentra el alumno.
+     */
+    @GetMapping(&quot;/alumnoPorDni/{dni}&quot;)
+    public Alumno getAlumnoByDni(@PathVariable String dni, Model model) {
+<span class="fc" id="L233">        Alumno alumno = alumnoService.findByDni(dni)</span>
+<span class="fc" id="L234">                .orElseThrow(() -&gt; new AlumnoNotFoundException(dni));</span>
+<span class="fc" id="L235">        model.addAttribute(&quot;alumno&quot;, alumno);</span>
+<span class="fc" id="L236">        return alumno;</span>
+    }
+
+    /**
+     * Lista todas las tutorías registradas.
+     * @param model Modelo para vista.
+     * @return Lista de tutorías.
+     */
+    @RequestMapping(&quot;/listarTutorias&quot;)
+    public List&lt;Tutoria&gt; catalogTutorias(Model model) {
+<span class="fc" id="L246">        List&lt;Tutoria&gt; tutorias = tutoriaService.findAll();</span>
+<span class="fc" id="L247">        model.addAttribute(&quot;tutorias&quot;, tutorias);</span>
+<span class="fc" id="L248">        return tutorias;</span>
+    }
+
+    /**
+     * Busca una tutoría por su ID.
+     * @param id_tutoria ID de la tutoría.
+     * @param model Modelo para vista.
+     * @return La tutoría encontrada.
+     * @throws TutoriaNotFoundException si no se encuentra la tutoría.
+     */
+    @GetMapping(&quot;/tutoriaPorId/{id_tutoria}&quot;)
+    public Tutoria getTutoriaById(@PathVariable Long id_tutoria, Model model) {
+<span class="fc" id="L260">        Tutoria tutoria = tutoriaService.findByIdTutoria(id_tutoria)</span>
+<span class="fc" id="L261">                .orElseThrow(() -&gt; new TutoriaNotFoundException(id_tutoria));</span>
+<span class="fc" id="L262">        model.addAttribute(&quot;tutoria&quot;, tutoria);</span>
+<span class="fc" id="L263">        return tutoria;</span>
+    }
+
+    /**
+     * Lista todas las tareas registradas.
+     * @param model Modelo para vista.
+     * @return Lista de tareas.
+     */
+    @RequestMapping(&quot;/listarTareas&quot;)
+    public List&lt;Tarea&gt; catalogTareas(Model model) {
+<span class="fc" id="L273">        List&lt;Tarea&gt; tareas = tareaService.findAll();</span>
+<span class="fc" id="L274">        model.addAttribute(&quot;tareas&quot;, tareas);</span>
+<span class="fc" id="L275">        return tareas;</span>
+    }
+
+    /**
+     * Busca una tarea por su ID.
+     * @param id_tarea ID de la tarea.
+     * @param model Modelo para vista.
+     * @return La tarea encontrada.
+     * @throws TareaNotFoundException si no se encuentra la tarea.
+     */
+    @GetMapping(&quot;/tareaPorId/{id_tarea}&quot;)
+    public Tarea getTareaById(@PathVariable Long id_tarea, Model model) {
+<span class="fc" id="L287">        Tarea tarea = tareaService.findByIdTarea(id_tarea)</span>
+<span class="fc" id="L288">                .orElseThrow(() -&gt; new TareaNotFoundException(id_tarea));</span>
+<span class="fc" id="L289">        model.addAttribute(&quot;tutoria&quot;, tarea);</span>
+<span class="fc" id="L290">        return tarea;</span>
+    }
+
+    // SERVICIOS DE UPDATE
+
+    /**
+     * Modifica una acta existente.
+     * @param acta Acta con los datos modificados.
+     * @return Acta actualizada con código HTTP 201.
+     */
+    @PutMapping(&quot;/modificarActa&quot;)
+    public ResponseEntity&lt;Acta&gt; updateActa(@RequestBody Acta acta) {
+<span class="fc" id="L302">        return new ResponseEntity&lt;&gt;(actaService.updateActa(acta), HttpStatus.CREATED);</span>
+    }
+
+    /**
+     * Modifica un alumno existente.
+     * @param alumno Alumno con los datos modificados.
+     * @return Alumno actualizado con código HTTP 201.
+     */
+    @PutMapping(&quot;/modificarAlumno&quot;)
+    public ResponseEntity&lt;Alumno&gt; updateAlumno(@RequestBody Alumno alumno) {
+<span class="fc" id="L312">        return new ResponseEntity&lt;&gt;(alumnoService.updateAlumno(alumno), HttpStatus.CREATED);</span>
+    }
+
+    /**
+     * Modifica una tarea existente.
+     * @param tarea Tarea con los datos modificados.
+     * @return Tarea actualizada con código HTTP 201.
+     */
+    @PutMapping(&quot;/modificarTarea&quot;)
+    public ResponseEntity&lt;Tarea&gt; updateTarea(@RequestBody Tarea tarea) {
+<span class="fc" id="L322">        return new ResponseEntity&lt;&gt;(tareaService.updateTarea(tarea), HttpStatus.CREATED);</span>
+    }
+
+    /**
+     * Modifica una tutoría existente.
+     * @param tutoria Tutoría con los datos modificados.
+     * @return Tutoría actualizada con código HTTP 201.
+     */
+    @PutMapping(&quot;/modificarTutoria&quot;)
+    public ResponseEntity&lt;Tutoria&gt; updateTutoria(@RequestBody Tutoria tutoria) {
+<span class="fc" id="L332">        return new ResponseEntity&lt;&gt;(tutoriaService.updateTutoria(tutoria), HttpStatus.CREATED);</span>
+    }
+    
+    /**
+     * Verifica que el usuario y la contraseña son correctos.
+     * @param nick
+     * @param clave
+     * @return
+     */
+	    @PostMapping(&quot;/login&quot;)
+	    public ResponseEntity&lt;?&gt; login(@RequestParam String nick, @RequestParam String clave) {
+<span class="nc" id="L343">	        System.out.println(&quot;nick recibido: &quot; + nick);</span>
+<span class="nc" id="L344">	        System.out.println(&quot;clave recibida: &quot; + clave);</span>
+<span class="nc" id="L345">	        Optional&lt;Usuario&gt; userOpt = usuarioRepo.findByNick(nick);</span>
+	
+<span class="nc bnc" id="L347" title="All 4 branches missed.">	        if (userOpt.isPresent() &amp;&amp; userOpt.get().getClave().equals(clave)) {</span>
+<span class="nc" id="L348">	            String token = jwtService.generateToken(nick);</span>
+<span class="nc" id="L349">	            return ResponseEntity.ok().body(Collections.singletonMap(&quot;token&quot;, token));</span>
+	        } else {
+<span class="nc" id="L351">	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(&quot;Credenciales incorrectas&quot;);</span>
+	        }
+	    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

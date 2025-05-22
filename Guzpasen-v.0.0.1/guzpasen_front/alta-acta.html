@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Modificar Acta</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <main class="main-content">
+      <header class="header">
+        <div class="logo">
+          <a href="https://blogsaverroes.juntadeandalucia.es/iestorrredelosguzmanes/" target="_blank">
+            <img src="./img/logoApp.png" alt="Logo"/>
+          </a>        
+        </div>          
+        <nav class="nav">
+          <a href="index.html"><button class="nav-button">HOME</button></a>
+          <a href="./index.html"><button class="nav-button">←</button></a>
+          <button class="nav-button active">AÑADIR ACTA</button>
+          <button id="btnUsuario" class="nav-button">USUARIO</button>
+        </nav>
+        <a href="./login.html"><button class="close-button">X</button></a>
+      </header>
+
+      <section class="form-section">
+        <h2>Añadir Acta</h2>
+        <form id="form-acta" class="formulario">
+
+          <label for="puntos-tratados">Puntos tratados:</label>
+          <textarea id="puntos-tratados" name="puntos-tratados" rows="2"></textarea>
+
+          <label for="observaciones">Observaciones:</label>
+          <textarea id="observaciones" name="observaciones" rows="2"></textarea>
+
+          <div class="form-buttons">
+            <button type="button" id="btn-cancelar" class="yellow-button">Cancelar</button>
+            <button type="submit" id="btn-aceptar" class="green-button">Aceptar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="js/usuario.js"></script>
+  <script src="modificarActa.js"></script>
+</body>
+</html>

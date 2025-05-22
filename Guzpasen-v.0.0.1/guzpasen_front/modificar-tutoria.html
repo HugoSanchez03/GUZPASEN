@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Modificar Tutoría</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <main class="main-content">
+      <header class="header">
+        <div class="logo">
+          <a href="https://blogsaverroes.juntadeandalucia.es/iestorrredelosguzmanes/" target="_blank">
+            <img src="./img/logoApp.png"/>
+          </a>        
+        </div>          
+        <nav class="nav">
+          <a href="index.html">
+            <button class="nav-button">HOME</button>
+          </a>
+          <a href="./index.html">
+            <button class="nav-button">←</button>
+          </a>
+          <button class="nav-button active">MODIFICAR TUTORIA</button>
+          <button id="btnUsuario" class="nav-button">USUARIO</button>
+        </nav>
+        <a href="./login.html">
+          <button class="close-button">X</button>
+        </a>
+      </header>
+
+      <section class="form-section">
+        <h2>Modificar Tutoría</h2>
+        <form id="modificarTutoriaForm" class="formulario">
+          <label>ID Tutoría:</label>
+          <input type="text" id="idTutoria" required>
+          
+          <label>Motivo:</label>
+          <input type="text" id="motivo" required>
+          
+          <label>Urgencia:</label>
+          <select id="urgencia" required>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+          
+          <label>Asignatura:</label>
+          <input type="text" id="asignatura" required>
+          
+          <label>Alumno:</label>
+          <input type="text" id="alumno" required>
+          
+          <label>Profesores:</label>
+          <input type="text" id="profesores" required>
+          
+          <label><input type="checkbox" id="notificarProfesores"> Notificar profesores</label>
+          
+          <div class="form-buttons">
+            <button type="button" class="yellow-button" id="cancelarBtn">Cancelar</button>
+            <button type="submit" class="green-button">Aceptar</button>
+          </div>
+          <p id="mensaje" style="color:red; margin-top:10px;"></p>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="js/usuario.js"></script>
+  <script src="/js/modificarTutoria.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Generar Informe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+
+    <main class="main-content">
+      <header class="header">
+        <div class="logo">
+          <a href="https://blogsaverroes.juntadeandalucia.es/iestorrredelosguzmanes/" target="_blank">
+            <img src="./img/logoApp.png"/>
+          </a>        
+        </div>          
+        <nav class="nav">
+          <a href="index.html">
+            <button class="nav-button">HOME</button>
+          </a>
+          <a href="./index.html">
+            <button class="nav-button">←</button>
+          </a>
+          <button class="nav-button active">GENERAR INFORME</button>
+          <button id="btnUsuario" class="nav-button">USUARIO</button>
+        </nav>
+        <a href="./login.html">
+          <button class="close-button">X</button>
+        </a>
+      </header>
+
+      <section class="form-section">
+        <h2>Generación de Informes</h2>
+        <form class="formulario">
+          <label>Desde:</label><input type="date">
+          <label>Hasta:</label><input type="date">
+          <label>Profesor/es:</label><input type="text">
+          <label>Asignatura/s:</label><input type="text">
+          <label>Estado:</label><input type="text">
+          <div class="form-buttons">
+            <button class="yellow-button">Cancelar</button>
+            <button class="green-button">Generar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="js/usuario.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TareaServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">guzpasen.services</a> &gt; <span class="el_source">TareaServiceImpl.java</span></div><h1>TareaServiceImpl.java</h1><pre class="source lang-java linenums">package guzpasen.services;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import guzpasen.exceptions.TareaNotFoundException;
+import guzpasen.models.Tarea;
+import guzpasen.models.Tarea.Estado;
+import guzpasen.repositories.TareaRepository;
+
+@Service
+<span class="fc" id="L16">public class TareaServiceImpl implements TareaService {</span>
+
+	@Autowired
+	private TareaRepository tareaRepository;
+	
+	@Override
+	public Tarea createTarea(Tarea tarea) {
+<span class="fc" id="L23">		return tareaRepository.save(tarea);</span>
+	}
+
+	@Override
+	public Tarea deleteTarea(Tarea tarea) {
+<span class="fc" id="L28">		tareaRepository.delete(tarea);</span>
+<span class="fc" id="L29">		return tarea;</span>
+	}
+
+	@Override
+	public List&lt;Tarea&gt; findAll() {
+<span class="nc" id="L34">		return tareaRepository.findAll();</span>
+	}
+
+	@Override
+	public Optional&lt;Tarea&gt; findByIdTarea(Long idTarea) {
+<span class="fc" id="L39">		return tareaRepository.findByIdTarea(idTarea);</span>
+	}
+
+	@Override
+	public List&lt;Tarea&gt; findByEstado(Estado estado) {
+<span class="fc" id="L44">		return tareaRepository.findByEstado(estado);</span>
+	}
+
+	@Override
+	public List&lt;Tarea&gt; findByFechaTarea(LocalDate fecha_tarea) {
+<span class="nc" id="L49">		return tareaRepository.findByFechaTarea(fecha_tarea);</span>
+	}
+
+	@Override
+	public List&lt;Tarea&gt; findByAsignatura(String asignatura) {
+<span class="nc" id="L54">		return tareaRepository.findByAsignatura(asignatura);</span>
+	}
+
+	@Override
+	public Tarea updateTarea(Tarea tarea) {
+<span class="fc" id="L59">		Tarea tareaEncontrada = tareaRepository.findById(tarea.getIdTarea()).orElseThrow( </span>
+<span class="fc" id="L60">				() -&gt; new TareaNotFoundException(tarea.getIdTarea()));</span>
+		
+<span class="fc" id="L62">		tareaEncontrada.setAsignatura(tarea.getAsignatura());</span>
+<span class="fc" id="L63">		tareaEncontrada.setDescripcion(tarea.getDescripcion());</span>
+<span class="fc" id="L64">		tareaEncontrada.setEstado(tarea.getEstado());</span>
+<span class="fc" id="L65">		tareaEncontrada.setFechaTarea(tarea.getFechaTarea());</span>
+<span class="fc" id="L66">		tareaEncontrada.setTutoria(tarea.getTutoria());</span>
+	
+<span class="fc" id="L68">		return tareaRepository.save(tareaEncontrada);</span>
+		
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

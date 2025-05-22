@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tarea.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">guzpasen.models</a> &gt; <span class="el_source">Tarea.java</span></div><h1>Tarea.java</h1><pre class="source lang-java linenums">package guzpasen.models;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDate;
+
+/**
+ * Representa una tarea asociada a una tutoría dentro del sistema Guzpasen.
+ * Cada tarea incluye información sobre la asignatura, su descripción, estado y fecha.
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Entity(name = &quot;tarea&quot;)
+public class Tarea {
+
+    /**
+     * Identificador único de la tarea. Se genera automáticamente.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id_tarea&quot;)
+    private Long idTarea;
+
+    /**
+     * Asignatura relacionada con la tarea.
+     */
+    @Column(name = &quot;asignatura&quot;)
+    private String asignatura;
+
+    /**
+     * Descripción de la tarea asignada.
+     */
+    @Column(name = &quot;descripcion&quot;)
+    private String descripcion;
+
+    /**
+     * Estado actual de la tarea: puede estar completada o pendiente.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = &quot;estado&quot;)
+    private Estado estado;
+
+    /**
+     * Fecha en la que se debe realizar o se registró la tarea.
+     */
+    @Column(name = &quot;fecha_tarea&quot;)
+    private LocalDate fechaTarea;
+
+    /**
+     * Tutoría a la que pertenece esta tarea.
+     */
+    @ManyToOne
+    @JoinColumn(name = &quot;id_tutoria&quot;)
+    private Tutoria tutoria;
+
+    /**
+     * Enum que representa los posibles estados de una tarea.
+     */
+<span class="fc" id="L62">    public enum Estado {</span>
+<span class="fc" id="L63">        /** La tarea ha sido completada. */</span>
+<span class="fc" id="L64">        COMPLETADA,</span>
+
+<span class="fc" id="L66">        /** La tarea está pendiente de realización. */</span>
+<span class="fc" id="L67">        PENDIENTE</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
